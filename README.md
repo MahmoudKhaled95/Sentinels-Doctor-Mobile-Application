@@ -20,4 +20,5 @@ As mentioned before MySQL database is used to store the patient’s measures whi
 # Video call Feature
 We implemented the video call feature in the app to allow the doctor to communicate efficiently with the patients. The main-Page of the android application has also video call button which starts new intent to video-call activity if the robot is ready which means that it arrived at the room and the patient has initiated the video call. 
 Our video call feature depends on the patient initiation of the video call as when the patient is in front of the robot, he will press the video call button in the GUI then the GUI with direct the patient to a video call room in which he will communicate with doctor and then an email will be send to the doctor to tell him that a patient wants to call him. After that the doctor will go to the android application and press the video call button to join the room with the patient.
+
 ![image](https://user-images.githubusercontent.com/100867843/180037532-47eaff07-81c8-43dd-8f21-3dbadf21f437.png)
