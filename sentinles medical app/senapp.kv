@@ -1,0 +1,538 @@
+#: import mtx kivy.metrics
+
+
+
+WindowManager:
+    LoginWindow:
+    MainWindow:
+    CreateAccountWindow:
+    ID_Window:
+    PatientDetails:
+<LoginWindow>:
+    name: "login"
+    email: email
+    password: passw
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: rgba('#0e1574ff')
+            Triangle:
+                points: [0, self.size[1], self.size[0], self.size[1], 0 , self.size[1]-(0.4*self.size[1])]
+            Color:
+                rgba: rgba('#0e1574c8')
+            Triangle:
+                points: [0, self.size[1], self.size[0], self.size[1], self.size[0] , self.size[1]-(0.4*self.size[1])]
+    GridLayout:
+        cols:1
+        padding: [mtx.dp(20),0]
+        GridLayout:
+            rows:9
+            Label:
+                markup: True
+                text: "[b]Welcome to Sentinel Application[/b]"
+                font_size: 50
+                color: (1,1,1,1)
+            Label:
+                text: ''
+                font_size: 0.1
+            Image:
+                source:'med2.png'
+                pos_hint_y: -0.5
+            Label:
+                markup: True
+                text: '[b]Enter your Account[/b]'
+                size_hint:(0.1,0.3)
+                color: (0,0,0,1)
+            FlatInput:
+                id: email
+                markup: True
+                hint_text: "Email address"
+                icon_right: "account"
+                multiline: False
+                size_hint: (0.1,0.18)
+            Label:
+                markup: True
+                text: '[b]Please Enter Password[/b]'
+                size_hint:(0.1,0.3)
+                color: (0,0,0,1)
+            FlatInput:
+                id: passw
+                markup: True
+                hint_text: "Password"
+                icon_right: "eye-off"
+                multiline: False
+                size_hint: (0.1,0.18)
+                password: True
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: 40
+                spacing: 40
+                StrokeButton:
+                    text: 'Create New Account'
+                    bold: True
+                    font_size: 30
+                    size_hint: (0.4,0.35)
+                    back_color: (37/255, 45/255, 111/255,1)
+                    on_release:
+                        root.createBtn()
+                        root.manager.transition.direction = 'up'
+                
+                RoundedButton:
+                    markup: True
+                    text:'[b]Log In[/b]'
+                    font_size: 30
+                    size_hint: (0.4,0.35)
+                    back_color: (15/255,118/255,27/255,1)
+                    on_release:
+                        root.loginBtn()
+                        root.manager.transition.direction = 'left'
+                
+            Label:
+                markup: True
+                text:"[b]With Sentinel Team\n    Copyright 2022[/b]"
+                font_size: 12
+                color: (0,0,0,1)
+                pos_hint:{'x':0,'y':-0.483}
+
+<MainWindow>:
+    name: 'main'
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: (0.95,0.95,0.95,1)
+            Rectangle:
+                size: self.size
+        BoxLayout:
+            padding: 10
+            spacing: 10
+            size_hint: 1,None
+            pos_hint: {'top':1}
+            height: 130
+            canvas.before:
+                Color:
+                    rgba: rgba('#0e1574ff')
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text_size: self.width, None
+                font_size: 35
+                color: (1,1,1,1)
+                text: 'Sentinal Medical Application'
+                bold: True
+            Image:
+                size_hint:None,None
+                pos_hint:{'x':0,'y':0.43}
+                size: 41,35
+                source: 'robotic.png'
+        
+        GridLayout:
+            rows: 4
+            Label:
+                markup: True
+                text: "[b]               Welcome to Sentinel Medical Application[/b]\n[i][b]We're your medical arm and we're always happy to help you.[/b][/i]"
+                font_size: 40
+                color: (0,0,0,1)
+            Image:
+                source:'medical-team.png'
+                pos_hint_y: -0.5
+            BoxLayout:
+                orientation: 'horizontal'
+                cols: 2
+                padding: 75
+                spacing: 140
+                SemiRounded:
+                    markup: True
+                    text: '[b]      Patient Details[/b]\n\n[i]Measures of patients[/i]'
+                    font_size: 30
+                    size_hint: (0.4,0.6)
+                    back_color: (39/255, 71/255, 87/255,1)
+                    on_release:
+                        root.go_to_patient()
+                        root.manager.transition.direction = 'left'
+                    Image:
+                        source: 'account-details-outline.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y + 90
+                
+                SemiRounded:
+                    markup: True
+                    text: '[b]               Video Call[/b]\n\n[i]Communicate with patients[/i]'
+                    font_size: 30
+                    size_hint: (0.4,0.6)
+                    back_color: (39/255, 71/255, 87/255,1)
+                    on_release:
+                        import webbrowser
+                        webbrowser.open("https://chat.1410inc.xyz/?room=room1_tld08fae099")
+                    Image:
+                        source: 'video-plus.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y + 90
+            BoxLayout:
+                padding: 40
+                spacing: 40
+                BackButton:
+                    text:'Back'
+                    bold: True
+                    font_size: 30
+                    size_hint: (0.2,0.25)
+                    pos_hint: {'x':0.4,'y':0.1}
+                    on_release:
+                        root.logOut()
+                        root.manager.transition.direction = 'right'
+
+
+
+<CreateAccountWindow>:
+    name: 'create'
+    email: email
+    password: password
+    GridLayout: 
+        cols: 1
+        padding: [mtx.dp(20),0]
+        GridLayout:
+            rows:8
+            Label:
+                markup: True
+                text: "[b]         Sign Up[/b]\n[i]It's quick and easy.[/i]"
+                font_size: 40
+                size_hint:(0.5,0.6)
+                color: (0,0,0,1)
+            Image:
+                source:"people.png"
+                size: 20,20
+            Label:
+                markup: True
+                text: '[b]Enter your Account[/b]'
+                size_hint:(0.1,0.3)
+                color: (0,0,0,1)
+            FlatInput:
+                id: email
+                hint_text: "New email address"
+                icon_right: "account"
+                multiline: False
+                size_hint: (1,0.18)
+                #background_color: (0,1/255,119/255,1)
+            Label:
+                markup: True
+                text: '[b]Please Enter Password[/b]'
+                size_hint:(0.1,0.3)
+                color: (0,0,0,1)
+            FlatInput:
+                id: password
+                hint_text: "New password"
+                icon_right: "eye-off"
+                multiline: False
+                size_hint: (1,0.18)
+                password: True
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: 40
+                spacing: 40
+                BackButton:
+                    markup: True
+                    text: '[b]Back[/b]'
+                    font_size: 30
+                    size_hint: (0.4,0.35)
+                    on_release:
+                        root.login()
+                        root.manager.transition.direction = 'down'
+                RoundedButton:
+                    markup: True
+                    text: '[b]Sign Up[/b]'
+                    font_size: 30
+                    size_hint: (0.4,0.35)
+                    background_normal: ''
+                    back_color: (37/255, 45/255, 111/255,1)
+                    on_release:
+                        root.submit()
+            Label:
+                markup: True
+                text:"[b]With Sentinel Team\n    Copyright 2022[/b]"
+                font_size: 10
+                color: (0,0,0,1)
+                pos_hint:{'x':0,'y':-0.483}
+
+
+<ID_Window>:
+    name: 'ID'
+    patientid: id
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: (0.95,0.95,0.95,1)
+            Rectangle:
+                size: self.size
+        BoxLayout:
+            padding: 10
+            spacing: 10
+            size_hint: 1,None
+            pos_hint: {'top':1}
+            height: 130
+            canvas.before:
+                Color:
+                    rgba: rgba('#0e1574ff')
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text_size: self.width, None
+                font_size: 35
+                color: (1,1,1,1)
+                text: 'Sentinal Medical Application'
+                bold: True
+            Image:
+                size_hint:None,None
+                pos_hint:{'x':0,'y':0.43}
+                size: 41,35
+                source: 'robotic.png'
+        GridLayout:
+            cols:1
+            GridLayout:
+                rows: 5
+                Label:
+                    markup: True
+                    text: '[b]Please Enter the Patient ID[/b]'
+                    font_size: 40
+                    size_hint:(0,0.9)
+                    color: (0,0,0,1)
+                Image:
+                    source: "patient_id.png"
+                    size: 60,60
+                BoxLayout:
+                    padding: [mtx.dp(20),0]
+                    padding: 50
+                    #spacing: 10
+                    FlatInput:
+                        id: id
+                        hint_text: "Patient ID"
+                        icon_right: "eye-off"
+                        multiline: False
+                        size_hint: (1,0.18)
+                BoxLayout:
+                    padding: 40
+                    spacing: 40
+                    BackButton:
+                        text: 'Back'
+                        bold: True
+                        font_size: 30
+                        size_hint: (0.4,0.35)
+                        on_release: 
+                            root.go_to_main()
+                            root.manager.transition.direction = 'right'
+                    
+                    RoundedButton:
+                        markup: True
+                        text: '[b]Submit[/b]'
+                        font_size: 30
+                        size_hint: (0.4,0.35)
+                        back_color: (32/255,60/255,73/255,1)
+                        on_release: 
+                            root.retrieve_data()
+                            root.manager.transition.direction = 'left'
+                    
+                            
+<PatientDetails>:
+    name: 'patient'
+    temp_id: temp_id
+    heartrate_id: heartrate_id
+    spo2_id: spo2_id
+    covid_id: covid_id
+    penomia_id: penomia_id
+    on_enter: root.write()
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: (0.95,0.95,0.95,1)
+            Rectangle:
+                size: self.size
+        BoxLayout:
+            padding: 10
+            spacing: 10
+            size_hint: 1,None
+            pos_hint: {'top':1}
+            height: 130
+            canvas.before:
+                Color:
+                    rgba: rgba('#0e1574ff')
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text_size: self.width, None
+                font_size: 35
+                color: (1,1,1,1)
+                text: 'Sentinal Medical Application'
+                bold: True
+            Image:
+                size_hint:None,None
+                pos_hint:{'x':0,'y':0.43}
+                size: 41,35
+                source: 'robotic.png'
+        BoxLayout:
+            rows: 6
+            orientation: 'vertical'
+            padding: 20
+            #spacing: 10
+            Label:
+                text:'The Measures of the Patient'
+                font_size: 40
+                color: (0,0,0,1)
+                bold: True
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: 'Temperature: '
+                    font_size: 35
+                    bold: True
+                    color: (0,0,0,1)
+                Label:
+                    id: temp_id
+                    text: ''
+                    bold: True
+                    font_size: 35
+                    color: (0,0,0,1)
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: 'Heart rate: '
+                    font_size: 35
+                    bold: True
+                    color: (0,0,0,1)
+                Label:
+                    id: heartrate_id
+                    text: ''
+                    font_size: 35
+                    bold: True
+                    color: (0,0,0,1)
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: 'Oxygen rate in your blood: '
+                    font_size: 35
+                    bold: True
+                    color: (0,0,0,1)
+                Label:
+                    id: spo2_id
+                    text: ''
+                    font_size: 35
+                    bold: True
+                    color: (0,0,0,1)
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: 'Covid-19: '
+                    font_size: 35
+                    bold: True
+                    color: (0,0,0,1)
+                Label:
+                    id: covid_id
+                    text: ''
+                    font_size: 35
+                    bold: True
+                    color: (0,0,0,1)
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: 'Pneumonia: '
+                    font_size: 35
+                    bold: True
+                    color: (0,0,0,1)
+                Label:
+                    id: penomia_id
+                    text: ''
+                    font_size: 35
+                    bold: True
+                    color: (0,0,0,1)
+            
+            BackButton:
+                text:'Back'
+                bold: True
+                font_size: 30
+                size_hint: (0.4,0.35)
+                pos_hint: {'x':0.32,'y':0.1}
+                on_release:
+                    root.go_to_id_page()
+                    root.manager.transition.direction = 'right'
+
+
+<FlatInput@TextInput>:
+    background_active: ''
+    background_normal: ''
+    background_color: [1,1,1,0]
+    canvas.before:
+        Color:
+            rgba: rgba('#0e1574ff')
+        Rectangle:
+            pos : self.pos
+            size: [self.size[0],1]
+
+
+<RoundedButton@Button>:
+    background_color: (0,0,0,0)
+    background_normal: ''
+    back_color: (15/255,118/255,27/255,1)
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        RoundedRectangle:
+            pos : self.pos
+            size: self.size
+            radius: [18,2,18,2]
+
+<RoundedButton2@Button>:
+    background_color: (0,0,0,0)
+    background_normal: ''
+    back_color: (15/255,118/255,27/255,1)
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        RoundedRectangle:
+            pos : self.pos
+            size: self.size
+            radius: [100]
+
+
+<StrokeButton@Button>:
+    background_color: (0,0,0,0)
+    background_normal: ''
+    back_color: (15/255,118/255,27/255,1)
+    border_radius: 10
+    color: self.back_color
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        Line:
+            rounded_rectangle: (self.pos[0],self.pos[1],self.size[0],self.size[1],self.border_radius)
+            width: 1.2
+
+
+<BackButton@Button>:
+    background_color: (0,0,0,0)
+    background_normal: ''
+    back_color: (236/255,53/255,41/255,1)
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        RoundedRectangle:
+            pos : self.pos
+            size: self.size
+            radius: [2,25,2,25]
+
+
+<SemiRounded@Button>:
+    background_color: (0,0,0,0)
+    background_normal: ''
+    back_color: (38/255,97/255,150/255,1)
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        RoundedRectangle:
+            pos : self.pos
+            size: self.size
+            radius: [20,20,20,20]
+
+
+
